@@ -35,13 +35,9 @@ public class PostResource {
     }
 
     @GetMapping("/fullsearch")
-    public ResponseEntity<List<Post>> fullSearch(@PathParam("text") String text,
-                                                 @PathParam("minDate") String minDate,
-                                                 @PathParam("maxDate") String maxDate) {
+    public ResponseEntity<List<Post>> fullSearch(@PathParam("text") String text) {
         text = URL.decodeParam(text);
-        Date min = URL.convertDate(minDate, new Date(0L));
-        Date max = URL.convertDate(maxDate, new Date());
-        List<Post> list = service.fullSearch(text, min, max);
+        List<Post> list = service.fullSearch(text);
         return ResponseEntity.ok().body(list);
     }
 
