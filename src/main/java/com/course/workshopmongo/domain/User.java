@@ -16,6 +16,7 @@ public class User {
     private String name;
     private String email;
 
+    // só carrega os posts do banco de dados quando chamar o getPosts()
     @DBRef(lazy = true)
     private List<Post> posts = new ArrayList<>();
 
