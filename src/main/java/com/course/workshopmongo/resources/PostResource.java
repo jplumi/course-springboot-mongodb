@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,5 +34,15 @@ public class PostResource {
         return ResponseEntity.ok().body(list);
     }
 
+    @GetMapping("/fullsearch")
+    public ResponseEntity<List<Post>> fullSearch(@PathParam("text") String text,
+                                                 @PathParam("minDate") String minDate,
+                                                 @PathParam("maxDate") String maxDate) {
+        text = URL.decodeParam(text);
+        Date min = URL.convertDate(minDate, new Date(0L));
+        Date max = URL.convertDate(maxDate, new Date());
+        List<Post> list = service.fullSearch(text, min, max);
+        return ResponseEntity.ok().body(list);
+    }
 
 }
